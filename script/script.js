@@ -1,5 +1,6 @@
 var queryURL = "";
 var city = "";
+var icons= "http://openweathermap.org/img/wn/"
 
 
 function round(value, decimals) {
@@ -49,6 +50,8 @@ $(".add-city").on("click", function (event) {
         var cityWindSpeed = response.wind.speed;
         var cityLat = response.coord.lat;
         var cityLon = response.coord.lon;
+        var cityIcon = response.weather[0].icon;
+        console.log(cityIcon);
         console.log(cityName);
         console.log(cityTemp);
         console.log(cityHumidity);
@@ -66,11 +69,14 @@ $(".add-city").on("click", function (event) {
             console.log(cityUV);
             $(".weather-points").empty();
             var h1One = $("<h1>").text(cityName + " " + moment().format("DD/MM/YYYY"));
+            var imgicon =$("<img>").attr("src",icons + cityIcon + "@2x.png").css("float","right").css("clear","left");
+            console.log(imgicon);
             var h4One = $("<h4>").text("Temperature: " + cityTemp + " °C");
             var h4Two = $("<h4>").text("Humidity: " + cityHumidity + "%");
             var h4Three = $("<h4>").text("Wind Speed: " + cityWindSpeed + " MPH");
             var h4Four = $("<h4>").text("UV Index: " + cityUV);
-            $(".weather-points").append(h1One, h4One, h4Two, h4Three, h4Four);
+            $(".weather-points").append(h1One, imgicon, h4One, h4Two, h4Three, h4Four);
+            forceast();
         })
     })
 }
@@ -82,6 +88,17 @@ $(".cleary").on("click", function (event) {
     $(".cityList").empty();
     }
 })
+
+function forceast(){
+var queryForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&APPID=393019def5a41c16a42cb577477e0a0d"
+$.ajax({
+    url: queryForecast,
+    method: "GET"
+}).then(function (response3) {
+    console.log(response3);
+    console.log(queryForecast);
+    })
+}
 
 
 /*

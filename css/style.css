@@ -30,7 +30,7 @@ body {
   }
 
 .top {
-  height: 240px;
+  height: 260px;
   border-style: solid;
   margin-right: 20px;
   background-color:whitesmoke;
@@ -40,16 +40,18 @@ body {
   padding-top: 20px;
 }
 
+
 .bottom {
   height: 320px;
   border-style: solid;
   margin-right: 20px;
   background-color:white;
-  border-color: gray;
+  border-color: white;
   border-width: 0.5px;
   /* text-align: center; */
   padding-top: 20px;
 }
+
 
 li {
   line-height: 25px ;
