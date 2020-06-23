@@ -75,9 +75,13 @@ $(".add-city").on("click", function (event) {
     })
 }
 
-
-
-
+$(".cleary").on("click", function (event) {
+    event.preventDefault();
+    var confirmClear = confirm("Are you sure you want to clear all the data?")
+    if(confirmClear){
+    $(".cityList").empty();
+    }
+})
 
 
 /*
@@ -114,4 +118,16 @@ $(".add-city").on("click", function (event) {
     // Putting the entire movie above the previous movies
     $("#movies-view").prepend(movieDiv);
     */
+/* 
+   loadPage();
 
+   function loadPage() {
+    var storedList = JSON.parse(localStorage.getItem("savedList"));
+    if (storedinitials !== null) {
+      storedList = JSON.parse(localStorage.getItem("savedList"));
+      savedList = storedList
+      for(var i = 0; i<savedList.length; i++){
+        var listItem = $("<li>");
+        listItem.text(city)= savedList[i].val();
+        $(".cityList").prepend(listItem);
+      }}} */
