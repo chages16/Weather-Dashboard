@@ -1,64 +1,61 @@
-# Homework Week 5- Work Day Scheduler
+# Homework Week 6- Weather Dashboard
 
 This project is to create a workday scheduler using jquery and moment APIs that saves data to the local storage and features dynamically updated HTML and CSS.
 
 ## User Story
 
 ```
-AS A coding bootcamp student
-I WANT to add important events to a daily planner
-SO THAT I can manage my time effectively
+AS someone planning to travel
+I want to be able to get the weather forecast of the places I'm travelling to
+SO THAT I can organise my trip effectively
 ```
 
 ## Acceptance Criteria
 
+GIVEN a weather dashboard with form inputs
+WHEN I search for a city
+THEN I am presented with current and future conditions for that city and that city is added to the search history
+WHEN I view current weather conditions for that city
+THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+WHEN I view the UV index
+THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+WHEN I view future weather conditions for that city
+THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
+WHEN I click on a city in the search history
+THEN I am again presented with current and future conditions for that city
+WHEN I open the weather dashboard
+THEN I am presented with the last searched city forecast
 ```
-GIVEN I am using a daily planner to create a schedule
-WHEN I open the planner
-THEN the current day is displayed at the top of the calendar
-WHEN I scroll down
-THEN I am presented with timeblocks for standard business hours
-WHEN I view the timeblocks for that day
-THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-WHEN I click into a timeblock
-THEN I can enter an event
-WHEN I click the save button for that timeblock
-THEN the text for that event is saved in local storage
-WHEN I refresh the page
-THEN the saved events persist
-```
+
+The following image demonstrates the what I was trying to replicate:
+
+![weather dashboard demo](./Assets/06-server-side-apis-homework-demo.png)
 
 ## Steps
 
-Using Javascript and JQueryand the skills from class, I used arrays, If functions and loops, and the Moment.js APIs to create a dailr workday scheduler.
+Firstly I created the template using CSS and Google Fonts. Used bootstrap for the columns and rows, but also decided to create a sidecar seperately outside the container.
 
-The first step was to learn moment.js functions in order to both generate the current day and output it in the header, and to generate the current hour.
+I used Open Weather API to search current weather data by city name. As I could find a way to get the UV Index and Forecast without the latitude and longitude, I used the latitude and longitude data sourced from the current weather data to search for these responses. I used Moment.js to display the current date/ dates for the respective forecast.
 
-My second step was to analyse the CSS provided code to determine what classes were required to change the colour scheme based on the time during the day. Using JQuery I created a function that added the class to the row based on whether or not the corresponding time was in the past/ present or future, by comparing it to the current hour.
+I used jquery to append the data to the page to prevent the script from being too complicated (or more complicated then it already is). The cities input into the main search box are saved into the local storage of the browser, and displayed under the search box. CSS and an event function is used to ensure if the user clicks an existing city the weather data displays.
 
-Finally, after the template was corrected, I assigned a variable to an array that collected all the information typed into a text field when the corresponding save button was clickes. This array then pushed the data to the local storage.
+A for loop is used to grab the forecast data over the next 5 days. I used an array for different id's to attribute to the div containers that contain each day's data.
 
-Whenever the page is opened, I created a function that would check for any existing local storage, and transfer it back to the array and into the corresponding text boxes, ensuring that all saved data would remain on screen.
+## Next Steps/ Improvements/ Bugs
 
-To make the project my mine, I made a few additions:
+My next step is to create a function that looks up the value input into the city field and looks to see if it has already been input before. The function would then display the city weather data but wouldn't add it to the list or stored data, so that the city does not appear twice.
 
-1. A clear function activated by a button that would erase all the data within the table.
-2. A function that stores the current date every time the application is run in the morning, and compares it with the date that is already there (if one exists). If the dates do not match, it sends an alert to the user letting them know the day has change and asks if the user wants to clear all the data.
-3. A save all function so you can save all the inputs.
+I'd like to go further and then ensure that if a city input doesn't return a result from Open Weather, it won't add the city to the list of searched cities.
 
-I ran the functions a few times and manually altered the system time to ensure it met all acceptance criteria.
+I'd also like to include a small clear button next to each item on the list of cities so they can be individually removed.
 
-## Next Steps/ Improvements
-
-My next steps would be to improve the CSS to make the application work better on phones rather than just laptop screens. I managed to manually alter the widths with media queries but would like to improve them.
-
-I'd also like to be able to schedule future days, choose between days and have the content change depending what day was selected.
+I'd like to spend some time refactoring the code and learning more about Open Weather API to make it simpler. Due to my limited knowledge of the API I believe I didn't simplify the script as much as it could have been. I've already noticed that I could probably remove one of my Ajax functions (the first one), if I had more time.
 
 ## Deployment
 
-The repository can be found here: https://github.com/chages16/WorkDayScheduler
+The repository can be found here: https://github.com/chages16/Weather-Dashboard
 
-The website, can be found here: https://chages16.github.io/WorkDayScheduler/
+The application, can be found here: https://chages16.github.io/Weather-Dashboard/
 
 ## Built With
 
@@ -66,17 +63,20 @@ The website, can be found here: https://chages16.github.io/WorkDayScheduler/
 * [Bootstrap](https://getbootstrap.com/)
 * [J Query](https://jquery.com/)
 * [Moment.js](https://momentjs.com/)
-
+* [Google Fonts](https://developers.google.com/fonts)
+* [Open Weather API](https://openweathermap.org/)
 
 ## Versioning
 
 1.0.0 
 
+## Application View
+![Screenshot](./Assets/wdscreenshot.png)
+
 ## Authors
 
-* **Chris Hage** - *Work Day Generator* - [Chages16](https://github.com/chages16/)
+* **Chris Hage** - *Weather Dashboard* - [Chages16](https://github.com/chages16/)
 
 ## Acknowledgments
 
-* Bootstrap
 * Uni SA Coding Bootcamp
