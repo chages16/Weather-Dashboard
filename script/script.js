@@ -4,6 +4,7 @@ var icons = "http://openweathermap.org/img/wn/"
 var citySave = [];
 
 
+
 function round(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }
@@ -52,6 +53,8 @@ function getData() {
         var cityLat = response.coord.lat;
         var cityLon = response.coord.lon;
         var cityIcon = response.weather[0].icon;
+        var cityCountry = response.sys.country;
+        console.log(cityCountry)
         console.log(cityIcon);
         console.log(cityName);
         console.log(cityTemp);
@@ -69,7 +72,7 @@ function getData() {
             var cityUV = response2.value;
             console.log(cityUV);
             $(".weather-points").empty();
-            var h1One = $("<h2>").text(cityName + " " + moment().format("DD/MM/YYYY"));
+            var h1One = $("<h2>").text(cityName + ", " + cityCountry + ", " + moment().format("DD/MM/YYYY"));
             var imgicon = $("<img>").attr("src", icons + cityIcon + "@2x.png").css("float", "right").css("clear", "left");
             console.log(imgicon);
             var h4One = $("<h4>").text("Temperature: " + cityTemp + " °C");
@@ -86,7 +89,21 @@ function getData() {
             else {
                 $(".uvindex").attr("class", "uvindexfav");
             }
-            forceast();
+            var queryForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLat + "&lon=" + cityLon + "&units=metric&exclude=hourly,current,minutely&appid=393019def5a41c16a42cb577477e0a0d";
+            $.ajax({
+                url: queryForecast,
+                method: "GET"
+            }).then(function (response3) {
+                console.log(response3);
+                console.log(queryForecast);
+                console.log(response3.daily[1].temp.max);
+                console.log(response3.daily[1].humidity);
+                console.log(response3.daily[1].weather[0].icon);
+                var forecastIcon = response3.daily[1].weather[0].icon;
+                console.log(queryForecast);
+                var newimgicon = $("<img>").attr("src", icons + forecastIcon + ".png").css("float", "right").css("clear", "left");
+                console.log(newimgicon);
+            })
         })
     })
 }
@@ -101,16 +118,6 @@ $(".cleary").on("click", function (event) {
     }
 })
 
-function forceast() {
-    var queryForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&APPID=393019def5a41c16a42cb577477e0a0d"
-    $.ajax({
-        url: queryForecast,
-        method: "GET"
-    }).then(function (response3) {
-        console.log(response3);
-        console.log(queryForecast);
-    })
-}
 
 
 /*
@@ -161,4 +168,5 @@ function loadPage() {
             $(".cityList").prepend(listItem);
         }
     }
-} 
+}
+
