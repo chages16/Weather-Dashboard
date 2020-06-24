@@ -2,6 +2,8 @@ var queryURL = "";
 var city = "";
 var icons = "http://openweathermap.org/img/wn/"
 var citySave = [];
+var listOfIds = ["Day1", "Day2", "Day3", "Day4", "Day5"]
+var listOfIds2 = ["#Day1", "#Day2", "#Day3", "#Day4", "#Day5"]
 
 
 
@@ -72,6 +74,7 @@ function getData() {
             var cityUV = response2.value;
             console.log(cityUV);
             $(".weather-points").empty();
+            $(".weather-forecast").empty();
             var h1One = $("<h2>").text(cityName + ", " + cityCountry + ", " + moment().format("DD/MM/YYYY"));
             var imgicon = $("<img>").attr("src", icons + cityIcon + "@2x.png").css("float", "right").css("clear", "left");
             console.log(imgicon);
@@ -99,10 +102,19 @@ function getData() {
                 console.log(response3.daily[1].temp.max);
                 console.log(response3.daily[1].humidity);
                 console.log(response3.daily[1].weather[0].icon);
-                var forecastIcon = response3.daily[1].weather[0].icon;
-                console.log(queryForecast);
-                var newimgicon = $("<img>").attr("src", icons + forecastIcon + ".png").css("float", "right").css("clear", "left");
-                console.log(newimgicon);
+                for (var i = 1; i < 6; i++) {
+                    var forecastTemp = (response3.daily[i].temp.max);
+                    var forecastHumidity = (response3.daily[i].humidity);
+                    var forecastIcon = response3.daily[i].weather[0].icon;
+                    console.log(queryForecast);
+                    var newimgicon = $("<img>").attr("src", icons + forecastIcon + ".png");
+                    var newDiv = $("<div>").attr("class", "forecast").attr("id", listOfIds[i - 1]).css("float", "left");
+                    var pOne = $("<p>").text("Temp: " + forecastTemp + " °C");
+                    var pTwo = $("<p>").text("Humidity: " + forecastHumidity + "%");
+                    var pThree = $("<p>").text(moment().add(i, "days").format("DD/MM/YYYY")).css("font-weight", "bold");
+                    $(".bottom").append(newDiv);
+                    $(listOfIds2[i - 1]).append(pThree, newimgicon, pOne, pTwo);
+                }
             })
         })
     })
